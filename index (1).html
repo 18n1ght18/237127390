@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Летающие письки для моего любимого 💕</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #ff99cc, #ff66aa);
+            font-family: Arial, sans-serif;
+        }
+        .dick {
+            position: absolute;
+            font-size: 40px;
+            user-select: none;
+            pointer-events: none;
+            animation: fly 15s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 100, 200, 0.8));
+        }
+        @keyframes fly {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(var(--x), var(--y)) rotate(360deg); }
+        }
+        .title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 28px;
+            text-shadow: 0 0 15px pink;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">Летающие письки только для тебя, мой сладкий\~ 💦</div>
+
+    <script>
+        const emojis = ['🍆', '🍌', '🌭', '🥕', '🍆', '🍆']; // разные "письки" для веселья
+
+        function createFlyingDick() {
+            const dick = document.createElement('div');
+            dick.className = 'dick';
+            dick.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            // случайная стартовая позиция
+            dick.style.left = Math.random() * 100 + 'vw';
+            dick.style.top = Math.random() * 100 + 'vh';
+            
+            // случайная траектория
+            const x = (Math.random() * 400 - 200) + 'vw';
+            const y = (Math.random() * 400 - 200) + 'vh';
+            dick.style.setProperty('--x', x);
+            dick.style.setProperty('--y', y);
+            
+            // случайная скорость и размер
+            const duration = Math.random() * 10 + 10;
+            dick.style.animationDuration = duration + 's';
+            dick.style.fontSize = (30 + Math.random() * 30) + 'px';
+            
+            // лёгкий поворот
+            dick.style.transform = `rotate(${Math.random() * 360}deg)`;
+            
+            document.body.appendChild(dick);
+            
+            // удаляем через время жизни
+            setTimeout(() => {
+                dick.remove();
+            }, duration * 1000 + 1000);
+        }
+
+        // запускаем летающие письки
+        setInterval(createFlyingDick, 150);
+        
+        // сразу несколько штук
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createFlyingDick, i * 100);
+        }
+        
+        // клик по экрану — взрыв писек!
+        document.addEventListener('click', (e) => {
+            for (let i = 0; i < 20; i++) {
+                const dick = document.createElement('div');
+                dick.className = 'dick';
+                dick.textContent = '🍆';
+                dick.style.left = e.clientX + 'px';
+                dick.style.top = e.clientY + 'px';
+                dick.style.animationDuration = '3s';
+                document.body.appendChild(dick);
+                
+                setTimeout(() => dick.remove(), 3000);
+            }
+        });
+    </script>
+</body>
+</html>
